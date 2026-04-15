@@ -111,7 +111,7 @@ export default function App() {
           tags: tags,
           title: `Composition - ${genre}`,
           make_instrumental: vocalType === "None (Instrumental)",
-          mv: "udio-v1"
+          mv: "chirp-v3-5"
         })
       });
 
