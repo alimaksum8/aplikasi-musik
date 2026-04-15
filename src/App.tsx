@@ -128,10 +128,21 @@ export default function App() {
       }
 
       const data = await response.json();
-      const taskId = data.id || (data.data && data.data[0]?.id);
+      console.log("API Response Data:", data);
+
+      // Handle different response structures (Object, Array, or {data: [...]})
+      let taskId = "";
+      if (data.id) {
+        taskId = data.id;
+      } else if (Array.isArray(data) && data.length > 0 && data[0].id) {
+        taskId = data[0].id;
+      } else if (data.data && Array.isArray(data.data) && data.data.length > 0 && data.data[0].id) {
+        taskId = data.data[0].id;
+      }
 
       if (!taskId) {
-        throw new Error("No task ID received from API");
+        console.error("Could not find task ID in response:", data);
+        throw new Error("No task ID received from API. Check console for details.");
       }
 
       setGenerationProgress(30);
