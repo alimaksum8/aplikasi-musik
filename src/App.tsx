@@ -116,8 +116,15 @@ export default function App() {
       });
 
       if (!response.ok) {
-        const err = await response.json();
-        throw new Error(err.error || "Failed to start generation");
+        let errorMessage = "Failed to start generation";
+        try {
+          const err = await response.json();
+          errorMessage = err.error || err.message || errorMessage;
+        } catch (e) {
+          // Jika bukan JSON, ambil teks status
+          errorMessage = `Error ${response.status}: ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
