@@ -110,7 +110,7 @@ export default function App() {
           prompt: lyrics || "A beautiful song",
           tags: tags,
           title: `Composition - ${genre}`,
-          make_instrumental: vocalType === "None (Instrumental)",
+          instrumental: vocalType === "None (Instrumental)",
           mv: "chirp-v3-5"
         })
       });
